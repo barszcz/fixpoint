@@ -4,7 +4,9 @@ var DefaultRoute = Router.DefaultRoute;
 var Link = Router.Link;
 var Route = Router.Route;
 var RouteHandler = Router.RouteHandler;
-var HN = new Firebase("https://hacker-news.firebaseio.com/v0");
+var HN = require('./hn');
+
+var FrontPage = require('./frontpage');
 
 var App = React.createClass({displayName: "App",
 
@@ -22,6 +24,19 @@ var App = React.createClass({displayName: "App",
 
 });
 
+var routes = (
+	React.createElement(Route, {name: "app", path: "/", handler: App}, 
+		React.createElement(DefaultRoute, {handler: FrontPage})
+	)
+	);
+
+
+Router.run(routes, Router.HistoryLocation, function(Handler) {
+	React.render(React.createElement(Handler, null), document.body);
+});
+},{"./frontpage":2,"./hn":4}],2:[function(require,module,exports){
+var HN = require('./hn');
+var Headline = require('./headline');
 
 var FrontPage = React.createClass({displayName: "FrontPage",
 
@@ -53,6 +68,9 @@ var FrontPage = React.createClass({displayName: "FrontPage",
 
 });
 
+module.exports = FrontPage;
+},{"./headline":3,"./hn":4}],3:[function(require,module,exports){
+var HN = require('./hn');
 
 var Headline = React.createClass({displayName: "Headline",
 
@@ -72,24 +90,15 @@ var Headline = React.createClass({displayName: "Headline",
 		var commentsCount = story.kids ? story.kids.length : 0;
 		var url = story.url || commentsUrl;
 		return (
-			React.createElement("div", null, 
+			React.createElement("div", {className: "frontpage-story"}, 
 				React.createElement("h3", null, React.createElement("a", {href: url, target: "_blank"}, story.title)), 
 				React.createElement("p", null, "Submitted by ", story.by, " - ", story.score, " points - ", React.createElement("a", {href: commentsUrl, target: "_blank"}, commentsCount, " comments"))
 			)
 		);
 	}
-})
-
-var routes = (
-	React.createElement(Route, {name: "app", path: "/", handler: App}, 
-		React.createElement(DefaultRoute, {handler: FrontPage})
-	)
-	);
-
-
-Router.run(routes, function(Handler) {
-	React.render(React.createElement(Handler, null), document.body);
 });
 
-// module.exports = {App: App, FrontPage: FrontPage, Headline: Headline}
+module.exports = Headline;
+},{"./hn":4}],4:[function(require,module,exports){
+module.exports = new Firebase("https://hacker-news.firebaseio.com/v0");
 },{}]},{},[1]);
