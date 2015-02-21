@@ -7,7 +7,7 @@ var Headline = React.createClass({
 	mixins: [ReactFireMixin],
 
 	getInitialState: function() {
-		return {story: {} };
+		return {story: {}};
 	},
 
 	componentWillMount: function() {
@@ -35,7 +35,7 @@ var Headline = React.createClass({
 		return (
 			<div className="frontpage-story">
 				<h3><a href={url} target="_blank">{story.title}</a> ({domain})</h3>
-				<p>Submitted by {story.by} - {story.score} points - <Link to="story" params={{itemId: String(story.id)}}>{commentsCount} comments</Link></p>
+				<p>Submitted by {story.by} - {story.score} points - <a href={story.id}>{commentsCount} comments</a></p>
 			</div>
 		);
 	}

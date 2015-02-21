@@ -7,7 +7,7 @@ var Headline = React.createClass({displayName: "Headline",
 	mixins: [ReactFireMixin],
 
 	getInitialState: function() {
-		return {story: {} };
+		return {story: {}};
 	},
 
 	componentWillMount: function() {
@@ -35,7 +35,7 @@ var Headline = React.createClass({displayName: "Headline",
 		return (
 			React.createElement("div", {className: "frontpage-story"}, 
 				React.createElement("h3", null, React.createElement("a", {href: url, target: "_blank"}, story.title), " (", domain, ")"), 
-				React.createElement("p", null, "Submitted by ", story.by, " - ", story.score, " points - ", React.createElement(Link, {to: "story", params: {itemId: String(story.id)}}, commentsCount, " comments"))
+				React.createElement("p", null, "Submitted by ", story.by, " - ", story.score, " points - ", React.createElement("a", {href: story.id}, commentsCount, " comments"))
 			)
 		);
 	}

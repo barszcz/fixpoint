@@ -1,6 +1,6 @@
 var HN = require('./hn');
 var Headline = require('./headline');
-var TransitionGroup = require('./timeout-transition-group');
+var TransitionGroup = React.addons.CSSTransitionGroup;
 
 
 var FrontPage = React.createClass({displayName: "FrontPage",
@@ -8,7 +8,7 @@ var FrontPage = React.createClass({displayName: "FrontPage",
 	mixins: [ReactFireMixin],
 
 	getInitialState: function() {
-		return { topstories: []};
+		return {topstories: []};
 	},
 
 	componentWillMount: function() {
@@ -26,7 +26,7 @@ var FrontPage = React.createClass({displayName: "FrontPage",
 		
 		return (
 			React.createElement("div", null, 
-			React.createElement(TransitionGroup, {enterTimeout: 5000, leaveTimeout: 5000, transitionName: "fade"}, 
+			React.createElement(TransitionGroup, {transitionName: "fade"}, 
 				stories
 			)
 			)

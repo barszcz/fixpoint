@@ -1,27 +1,25 @@
 var HN = require('./hn');
-var Router = window.ReactRouter;
-var TransitionGroup = require('./timeout-transition-group');
+var TransitionGroup = React.addons.CSSTransitionGroup;
 
 var Story = React.createClass({
 
-	mixins: [ReactFireMixin, Router.State],
+	mixins: [ReactFireMixin],
 
 	getInitialState: function() {
 		return {data: {}};
 	},
 
 	componentWillMount: function() {
-		var id = this.getParams().itemId;
-		this.bindAsObject(HN.child("item").child(this.getParams().itemId), "data")
+		this.bindAsObject(HN.child("item").child(this.props.storyId), "data")
 	},
 
 	render: function() {
 		return (
-			<TransitionGroup enterTimeout={5000} leaveTimeout={5000} transitionName="fade">
 				<div>
 					<h1>{this.state.data.title}</h1>
+					// I'm trusting HN to not send down malicious HTML
+					<p dangerouslySetInnerHTML={{__html: (this.state.data.text || "")}} />
 				</div>
-			</TransitionGroup>
 		);
 	}
 
