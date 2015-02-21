@@ -1,5 +1,7 @@
 var HN = require('./hn');
 var Headline = require('./headline');
+var TransitionGroup = require('./timeout-transition-group');
+
 
 var FrontPage = React.createClass({
 
@@ -24,7 +26,9 @@ var FrontPage = React.createClass({
 		
 		return (
 			<div>
+			<TransitionGroup enterTimeout={5000} leaveTimeout={5000} transitionName="fade">
 				{stories}
+			</TransitionGroup>
 			</div>
 			);
 	}

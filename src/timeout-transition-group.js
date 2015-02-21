@@ -1,164 +1,3 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-var Router = window.ReactRouter;
-var DefaultRoute = Router.DefaultRoute;
-var Link = Router.Link;
-var Route = Router.Route;
-var RouteHandler = Router.RouteHandler;
-var HN = require('./hn');
-var TransitionGroup = require('./timeout-transition-group');
-
-var FrontPage = require('./frontpage');
-var Story = require('./story');
-
-var App = React.createClass({displayName: "App",
-
-	mixins: [Router.RouteHandlerMixin],
-
-	render: function() {
-		// var Handler = this.getRouteHandler();
-		return (
-			React.createElement("div", null, 
-				React.createElement("header", null, 
-					React.createElement("h1", null, React.createElement(Link, {to: "app"}, "Fixpoint"))
-				), 
-				React.createElement(TransitionGroup, {enterTimeout: 5000, leaveTimeout: 5000, transitionName: "fade"}, 
-					React.createElement(RouteHandler, null)
-				)
-			)
-		);
-	}
-
-});
-
-var routes = (
-	React.createElement(Route, {name: "app", path: "/", handler: App}, 
-		React.createElement(Route, {name: "story", path: ":itemId", handler: Story}), 
-		React.createElement(DefaultRoute, {handler: FrontPage})
-	)
-	);
-
-
-Router.run(routes, function(Handler) {
-	React.render(React.createElement(Handler, null), document.body);
-});
-},{"./frontpage":2,"./hn":4,"./story":5,"./timeout-transition-group":6}],2:[function(require,module,exports){
-var HN = require('./hn');
-var Headline = require('./headline');
-var TransitionGroup = require('./timeout-transition-group');
-
-
-var FrontPage = React.createClass({displayName: "FrontPage",
-
-	mixins: [ReactFireMixin],
-
-	getInitialState: function() {
-		return { topstories: []};
-	},
-
-	componentWillMount: function() {
-		this.bindAsArray(HN.child("topstories"), "topstories");
-	},
-	
-	render: function() {
-		
-		var stories = this.state.topstories.map(function(id) {
-			var story = HN.child("item").child(id);
-			return (
-				React.createElement(Headline, {key: id, storyId: id})
-			);
-		});
-		
-		return (
-			React.createElement("div", null, 
-			React.createElement(TransitionGroup, {enterTimeout: 5000, leaveTimeout: 5000, transitionName: "fade"}, 
-				stories
-			)
-			)
-			);
-	}
-
-});
-
-module.exports = FrontPage;
-},{"./headline":3,"./hn":4,"./timeout-transition-group":6}],3:[function(require,module,exports){
-var HN = require('./hn');
-var Router = window.ReactRouter;
-var Link = Router.Link;
-
-var Headline = React.createClass({displayName: "Headline",
-
-	mixins: [ReactFireMixin],
-
-	getInitialState: function() {
-		return {story: {} };
-	},
-
-	componentWillMount: function() {
-		this.bindAsObject(HN.child("item").child(this.props.storyId), "story");
-	},
-
-	commentsCount: function() {
-		var queue = this.state.story.kids || [];
-		var count = 0;
-		while (queue.length > 0) {
-			var next = HN.child("item").child(queue.shift());
-			queue.concat(next.kids);
-			count++;
-		}
-		return count;
-	},
-
-	render: function() {
-		var story = this.state.story;
-		var commentsCount = story.kids ? story.kids.length : 0;
-		var commentsUrl = "https://news.ycombinator.com/item?id=" + this.props.storyId;
-		var url = story.url || commentsUrl;
-		var domain = url.match(/https?:\/\/([^\/]+)/)[1];
-
-		return (
-			React.createElement("div", {className: "frontpage-story"}, 
-				React.createElement("h3", null, React.createElement("a", {href: url, target: "_blank"}, story.title), " (", domain, ")"), 
-				React.createElement("p", null, "Submitted by ", story.by, " - ", story.score, " points - ", React.createElement(Link, {to: "story", params: {itemId: String(story.id)}}, commentsCount, " comments"))
-			)
-		);
-	}
-});
-
-module.exports = Headline;
-},{"./hn":4}],4:[function(require,module,exports){
-module.exports = new Firebase("https://hacker-news.firebaseio.com/v0");
-},{}],5:[function(require,module,exports){
-var HN = require('./hn');
-var Router = window.ReactRouter;
-var TransitionGroup = require('./timeout-transition-group');
-
-var Story = React.createClass({displayName: "Story",
-
-	mixins: [ReactFireMixin, Router.State],
-
-	getInitialState: function() {
-		return {data: {}};
-	},
-
-	componentWillMount: function() {
-		var id = this.getParams().itemId;
-		this.bindAsObject(HN.child("item").child(this.getParams().itemId), "data")
-	},
-
-	render: function() {
-		return (
-			React.createElement(TransitionGroup, {enterTimeout: 5000, leaveTimeout: 5000, transitionName: "fade"}, 
-				React.createElement("div", null, 
-					React.createElement("h1", null, this.state.data.title)
-				)
-			)
-		);
-	}
-
-});
-
-module.exports = Story;
-},{"./hn":4,"./timeout-transition-group":6}],6:[function(require,module,exports){
 /**
  * The CSSTransitionGroup component uses the 'transitionend' event, which
  * browsers will not send for any number of reasons, including the
@@ -274,7 +113,7 @@ function hasClass(element, className) {
     }
 }
 
-var TimeoutTransitionGroupChild = React.createClass({displayName: "TimeoutTransitionGroupChild",
+var TimeoutTransitionGroupChild = React.createClass({
     transition: function(animationType, finishCallback) {
         var node = this.getDOMNode();
         var className = this.props.name + '-' + animationType;
@@ -359,7 +198,7 @@ var TimeoutTransitionGroupChild = React.createClass({displayName: "TimeoutTransi
     }
 });
 
-var TimeoutTransitionGroup = React.createClass({displayName: "TimeoutTransitionGroup",
+var TimeoutTransitionGroup = React.createClass({
     propTypes: {
         enterTimeout: React.PropTypes.number.isRequired,
         leaveTimeout: React.PropTypes.number.isRequired,
@@ -377,26 +216,24 @@ var TimeoutTransitionGroup = React.createClass({displayName: "TimeoutTransitionG
 
     _wrapChild: function(child) {
         return (
-            React.createElement(TimeoutTransitionGroupChild, {
-                    enterTimeout: this.props.enterTimeout, 
-                    leaveTimeout: this.props.leaveTimeout, 
-                    name: this.props.transitionName, 
-                    enter: this.props.transitionEnter, 
-                    leave: this.props.transitionLeave}, 
-                child
-            )
+            <TimeoutTransitionGroupChild
+                    enterTimeout={this.props.enterTimeout}
+                    leaveTimeout={this.props.leaveTimeout}
+                    name={this.props.transitionName}
+                    enter={this.props.transitionEnter}
+                    leave={this.props.transitionLeave}>
+                {child}
+            </TimeoutTransitionGroupChild>
         );
     },
 
     render: function() {
         return (
-            React.createElement(ReactTransitionGroup, React.__spread({}, 
-                this.props, 
-                {childFactory: this._wrapChild}))
+            <ReactTransitionGroup
+                {...this.props}
+                childFactory={this._wrapChild} />
         );
     }
 });
 
 module.exports = TimeoutTransitionGroup;
-
-},{}]},{},[1]);
