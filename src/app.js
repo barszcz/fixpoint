@@ -15,9 +15,6 @@ var App = React.createClass({
 		'/': 'frontPage',
 		'/:itemId': 'story',
 		'/user/:userId': 'user',
-		'/fixpoint/': 'frontPage',
-		'/fixpoint/:itemId': 'story',
-		'/fixpoint/user/:userId': 'user'
 	},
 
 	render: function() {
@@ -49,4 +46,4 @@ var App = React.createClass({
 
 });
 
-React.render(<App root="/fixpoint"/>, document.body);
+React.render(<App />, document.body);
