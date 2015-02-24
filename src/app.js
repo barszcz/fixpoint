@@ -1,13 +1,11 @@
-var RouterMixin = ReactMiniRouter.RouterMixin;
-// var DefaultRoute = Router.DefaultRoute;
-// var Link = Router.Link;
-// var Route = Router.Route;
-// var RouteHandler = Router.RouteHandler;
+var React = require('react/addons');
+var RouterMixin = require('react-mini-router').RouterMixin;
 var HN = require('./hn');
 var TransitionGroup = React.addons.CSSTransitionGroup;
 
 var FrontPage = require('./frontpage');
 var Story = require('./story');
+var User = require('./user');
 
 var App = React.createClass({
 
@@ -16,10 +14,10 @@ var App = React.createClass({
 	routes: {
 		'/': 'frontPage',
 		'/:itemId': 'story',
+		'/user/:userId': 'user'
 	},
 
 	render: function() {
-		// var Handler = this.getRouteHandler();
 		return (
 			<div>
 				<header>
@@ -42,9 +40,9 @@ var App = React.createClass({
 		return <Story itemId={itemId} key={itemId}/>
 	},
 
-	// user: function(userId) {
-	// 	return <User userId={userId} key={userId}/>
-	// };
+	user: function(userId) {
+		return <User userId={userId} key={userId}/>
+	},
 
 });
 

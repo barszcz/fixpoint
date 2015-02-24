@@ -1,3 +1,4 @@
+var React = require('react/addons');
 var HN = require('./hn');
 var TransitionGroup = React.addons.CSSTransitionGroup;
 var Comment = require('./comment');
@@ -15,8 +16,13 @@ var Story = React.createClass({
 		this.bindAsObject(HN.child("item").child(this.props.itemId), "data")
 	},
 
+	componentDidMount: function() {
+		window.scroll(0,0);
+	},
+
 	render: function() {
 		var data = this.state.data;
+		var x = 3;
 		var commentsCount = data.kids ? data.kids.length : 0;
 		var comments = data.kids && data.kids.map(function(id) {
 			return (
@@ -24,7 +30,7 @@ var Story = React.createClass({
 			);
 		});
 
-		// dangerouslySetInnerHTML because I'm trusting HN's API
+		// dangerouslySetInnerHTML because I'm trusting HN's API, this is a test
 		return (
 				<div className="story">
 					<h2>{data.title}</h2>

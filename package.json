@@ -1,17 +1,22 @@
 {
   "name": "fixpoint",
   "version": "1.0.0",
-  "description": "",
+  "description": "A Hacker News reader built with React.js",
   "main": "main.js",
   "dependencies": {
     "moment": "^2.9.0",
-    "react-animate": "^1.1.0"
+    "react": "^0.12.2",
+    "react-mini-router": "^1.1.0"
   },
   "devDependencies": {
     "browserify": "^9.0.3",
-    "browserify-global-shim": "^1.0.0",
-    "browserify-shim": "^3.8.3"
+    "reactify": "^1.0.0"
   },
+
+  "browserify": {
+    "transform": ["reactify"]
+  },
+
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

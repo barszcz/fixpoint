@@ -93,7 +93,31 @@ a:hover {
   transition: opacity .5s ease-in;
 }
 
-.comment > div {
+.fade-leave.fade-leave-active {
+  opacity: 0.01;
+}
+
+.slide-enter {
+	max-height: 1px;
+	transition: max-height .5s;
+	overflow: hidden;
+}
+
+.slide-enter.slide-enter-active {
+	max-height: 1200px;
+}
+
+.slide-leave {
+	max-height: 1200px;
+	transition: max-height .5s;
+	overflow: hidden;
+}
+
+.slide-leave.slide-leave-active {
+	max-height: 1px;
+}
+
+/*.comment > div {
 	max-height: 1000px;
 	transition: max-height .5s linear;
 	overflow: hidden;
@@ -102,13 +126,10 @@ a:hover {
 .comment > div.collapsed {
 	max-height: 0px;
 	overflow: hidden;
-}
+}*/
 
-.fade-leave.fade-leave-active {
-  opacity: 0.01;
-}
 
-.story h2 {
+.story h2 , .user h2 {
 	text-align: center;
 	margin: 20px 0;
 }

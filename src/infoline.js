@@ -1,3 +1,4 @@
+var React = require('react/addons');
 var Moment = require('moment');
 
 var InfoLine = React.createClass({

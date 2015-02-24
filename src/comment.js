@@ -1,5 +1,7 @@
+var React = require('react/addons');
 var HN = require('./hn');
 var InfoLine = require('./infoline');
+var CommentBody = require('./comment-body');
 var TransitionGroup = React.addons.CSSTransitionGroup;
 
 var Comment = React.createClass({
@@ -30,16 +32,14 @@ var Comment = React.createClass({
 			);
 		});
 		var expand = this.state.collapsed ? "[+]" : "[-]";
-		var textClass = React.addons.classSet({
-			'collapsed': this.state.collapsed
-		});
+		var commentBody = !this.state.collapsed ? <CommentBody key={data.id} text={data.text || ""} /> : null
 
 		return (
 			<li>
 				<div className="comment">
 					<a href="javascript:void(0);" onClick={this.toggleCollapsed} className="expand-button">{expand} </a>
 					<InfoLine data={data} isComment={true} />
-					<div className={textClass} dangerouslySetInnerHTML={{__html: (data.text || "")}}/>
+						{commentBody}
 				</div>
 				<TransitionGroup transitionName="fade" component="ul">
 					{children}
