@@ -14,14 +14,17 @@ var App = React.createClass({
 	routes: {
 		'/': 'frontPage',
 		'/:itemId': 'story',
-		'/user/:userId': 'user'
+		'/user/:userId': 'user',
+		'/fixpoint/': 'frontPage',
+		'/fixpoint/:itemId': 'story',
+		'/fixpoint/user/:userId': 'user'
 	},
 
 	render: function() {
 		return (
 			<div>
 				<header>
-					<h1><a href="/">Fixpoint</a></h1>
+					<h1><a href="#">Fixpoint</a></h1>
 				</header>
 				<main>
 				<TransitionGroup transitionName="fade">
@@ -46,4 +49,4 @@ var App = React.createClass({
 
 });
 
-React.render(<App/>, document.body);
+React.render(<App root="/fixpoint"/>, document.body);
