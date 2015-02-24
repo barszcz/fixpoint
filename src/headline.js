@@ -1,6 +1,6 @@
 var HN = require('./hn');
-var Router = window.ReactRouter;
-var Link = Router.Link;
+var InfoLine = require('./infoline');
+
 
 var Headline = React.createClass({
 
@@ -11,7 +11,7 @@ var Headline = React.createClass({
 	},
 
 	componentWillMount: function() {
-		this.bindAsObject(HN.child("item").child(this.props.storyId), "story");
+		this.bindAsObject(HN.child("item").child(this.props.itemId), "story");
 	},
 
 	commentsCount: function() {
@@ -28,14 +28,14 @@ var Headline = React.createClass({
 	render: function() {
 		var story = this.state.story;
 		var commentsCount = story.kids ? story.kids.length : 0;
-		var commentsUrl = "https://news.ycombinator.com/item?id=" + this.props.storyId;
+		var commentsUrl = "https://news.ycombinator.com/item?id=" + this.props.itemId;
 		var url = story.url || commentsUrl;
 		var domain = url.match(/https?:\/\/([^\/]+)/)[1];
 
 		return (
 			<div className="frontpage-story">
 				<h3><a href={url} target="_blank">{story.title}</a> ({domain})</h3>
-				<p>Submitted by {story.by} - {story.score} points - <a href={story.id}>{commentsCount} comments</a></p>
+				<InfoLine data={story} />
 			</div>
 		);
 	}

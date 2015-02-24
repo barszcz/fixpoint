@@ -18,9 +18,9 @@ var FrontPage = React.createClass({
 	render: function() {
 		
 		var stories = this.state.topstories.map(function(id) {
-			var story = HN.child("item").child(id);
+			// var story = HN.child("item").child(id);
 			return (
-				<Headline key={id} storyId={id}/>
+				<Headline key={id} itemId={id}/>
 			);
 		});
 		

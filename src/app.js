@@ -1,4 +1,4 @@
-var RouterMixin = require('react-mini-router').RouterMixin;
+var RouterMixin = ReactMiniRouter.RouterMixin;
 // var DefaultRoute = Router.DefaultRoute;
 // var Link = Router.Link;
 // var Route = Router.Route;
@@ -15,7 +15,7 @@ var App = React.createClass({
 
 	routes: {
 		'/': 'frontPage',
-		'/:itemId': 'story'
+		'/:itemId': 'story',
 	},
 
 	render: function() {
@@ -25,9 +25,11 @@ var App = React.createClass({
 				<header>
 					<h1><a href="/">Fixpoint</a></h1>
 				</header>
+				<main>
 				<TransitionGroup transitionName="fade">
 					{this.renderCurrentRoute()}
 				</TransitionGroup>
+				</main>
 			</div>
 		);
 	},
@@ -37,19 +39,13 @@ var App = React.createClass({
 	},
 
 	story: function(itemId) {
-		return <Story storyId={itemId} key={itemId}/>
-	}
+		return <Story itemId={itemId} key={itemId}/>
+	},
+
+	// user: function(userId) {
+	// 	return <User userId={userId} key={userId}/>
+	// };
 
 });
 
-// var routes = (
-// 	<Route name="app" path="/" handler={App}>
-// 		<Route name="story" path=":itemId" handler={Story}/>
-// 		<DefaultRoute handler={FrontPage}/>
-// 	</Route>
-// 	);
-
-
-// Router.run(routes, function(Handler) {
-	React.render(<App/>, document.body);
-// });
+React.render(<App/>, document.body);
