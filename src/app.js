@@ -1,7 +1,7 @@
-var React = require('react/addons');
+var React = require('react');
 var RouterMixin = require('react-mini-router').RouterMixin;
 var HN = require('./hn');
-var TransitionGroup = React.addons.CSSTransitionGroup;
+// var TransitionGroup = React.addons.CSSTransitionGroup;
 
 var FrontPage = require('./frontpage');
 var Story = require('./story');
@@ -24,9 +24,7 @@ var App = React.createClass({
 					<h1><a href="#">Fixpoint</a></h1>
 				</header>
 				<main>
-				<TransitionGroup transitionName="fade">
 					{this.renderCurrentRoute()}
-				</TransitionGroup>
 				</main>
 			</div>
 		);

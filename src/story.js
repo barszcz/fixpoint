@@ -1,6 +1,6 @@
-var React = require('react/addons');
+var React = require('react');
 var HN = require('./hn');
-var TransitionGroup = React.addons.CSSTransitionGroup;
+// var TransitionGroup = React.addons.CSSTransitionGroup;
 var Comment = require('./comment');
 var InfoLine = require('./infoline');
 

@@ -1,7 +1,7 @@
-var React = require('react/addons');
+var React = require('react');
 var HN = require('./hn');
 var Headline = require('./headline');
-var TransitionGroup = React.addons.CSSTransitionGroup;
+// var TransitionGroup = React.addons.CSSTransitionGroup;
 
 var FrontPage = React.createClass({
 
@@ -26,9 +26,7 @@ var FrontPage = React.createClass({
 		
 		return (
 			<div>
-			<TransitionGroup transitionName="fade">
 				{stories}
-			</TransitionGroup>
 			</div>
 			);
 	}

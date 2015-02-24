@@ -1,8 +1,8 @@
-var React = require('react/addons');
+var React = require('react');
 var HN = require('./hn');
 var InfoLine = require('./infoline');
 var CommentBody = require('./comment-body');
-var TransitionGroup = React.addons.CSSTransitionGroup;
+// var TransitionGroup = React.addons.CSSTransitionGroup;
 
 var Comment = React.createClass({
 
@@ -41,9 +41,7 @@ var Comment = React.createClass({
 					<InfoLine data={data} isComment={true} />
 						{commentBody}
 				</div>
-				<TransitionGroup transitionName="fade" component="ul">
-					{children}
-				</TransitionGroup>
+				{children}
 			</li>
 
 		);

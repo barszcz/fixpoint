@@ -1,4 +1,4 @@
-var React = require('react/addons');
+var React = require('react');
 var HN = require('./hn');
 var InfoLine = require('./infoline');
 
