@@ -8,15 +8,20 @@ var Headline = React.createClass({
 	mixins: [ReactFireMixin],
 
 	getInitialState: function() {
-		return {story: {}};
+		return {data: this.props.initialData || {}};
 	},
 
 	componentWillMount: function() {
-		this.bindAsObject(HN.child("item").child(this.props.itemId), "story");
+		var firebase = HN.child("item").child(this.props.itemId);
+		firebase.once("value", function(res) {
+			var data = res.val();
+			this.props.onMount(this.props.itemId, data)
+		}.bind(this));
+		this.bindAsObject(firebase, "data");
 	},
 
 	commentsCount: function() {
-		var queue = this.state.story.kids || [];
+		var queue = this.state.data.kids || [];
 		var count = 0;
 		while (queue.length > 0) {
 			var next = HN.child("item").child(queue.shift());
@@ -27,16 +32,17 @@ var Headline = React.createClass({
 	},
 
 	render: function() {
-		var story = this.state.story;
-		var commentsCount = story.kids ? story.kids.length : 0;
+		var data = this.state.data;
+		var commentsCount = data.kids ? data.kids.length : 0;
 		var commentsUrl = "https://news.ycombinator.com/item?id=" + this.props.itemId;
-		var url = story.url || commentsUrl;
+		var url = data.url || commentsUrl;
 		var domain = url.match(/https?:\/\/([^\/]+)/)[1];
 
 		return (
 			<div className="frontpage-story">
-				<h3><a href={url} target="_blank">{story.title}</a> ({domain})</h3>
-				<InfoLine data={story} />
+				<h2 className="score">{data.score}</h2>
+				<h3><a href={url} target="_blank">{data.title}</a> ({domain})</h3>
+				<InfoLine data={data} />
 			</div>
 		);
 	}

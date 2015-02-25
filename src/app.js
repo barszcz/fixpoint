@@ -1,7 +1,8 @@
-var React = require('react');
+var React = require('react/addons');
 var RouterMixin = require('react-mini-router').RouterMixin;
 var HN = require('./hn');
-// var TransitionGroup = React.addons.CSSTransitionGroup;
+var TransitionGroup = React.addons.CSSTransitionGroup;
+window.React = React;
 
 var FrontPage = require('./frontpage');
 var Story = require('./story');
@@ -17,7 +18,23 @@ var App = React.createClass({
 		'/user/:userId': 'user',
 	},
 
+	// getInitialState: function() {
+	// 	return {
+	// 		mounted: false
+	// 	};
+	// },
+
+	// componentDidMount: function() {
+	// 	this.setState({
+	// 		mounted: true
+	// 	});
+	// },
+
 	render: function() {
+		var child;
+		// if (this.state.mounted) {
+		// 	child = this.renderCurrentRoute();
+		// }
 		return (
 			<div>
 				<header>

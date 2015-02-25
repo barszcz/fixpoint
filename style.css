@@ -1,5 +1,10 @@
-@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
-@import url(http://fonts.googleapis.com/css?family=Merriweather:400,400italic,700,700italic);
+/*@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
+@import url(http://fonts.googleapis.com/css?family=Merriweather:400,400italic,700,700italic);*/
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700);
+/*@import url(http://fonts.googleapis.com/css?family=Oswald:400,700,300);
+@import url(http://fonts.googleapis.com/css?family=PT+Sans:400,700);*/
+@import url(http://fonts.googleapis.com/css?family=PT+Serif:400,700,400italic,700italic);
+
 
 html, body, section, main, article,
 h1, h2, h3, h4, p, strong, em, a, ul {
@@ -16,7 +21,8 @@ h1, h2, h3, h4, p, strong, em, a, ul {
 }
 
 body {
-	font-family: Merriweather, serif;
+	font-family: PT Serif, serif;
+	/*font-weight: 300;*/
 	font-size: 13px;
 }
 
@@ -38,12 +44,12 @@ li {
 }
 
 header {
-	background: rgba(0, 0, 255, .1);
+	background: #AFA;
 	text-align: center;
 }
 
 h1, h2, h3, h4 {
-	font-family: Lato, sans-serif;
+	font-family: Open Sans, sans-serif;
 }
 
 h1 {
@@ -60,23 +66,37 @@ h3 {
 }
 
 p {
-	margin: 15px 0;
+	margin-top: 15px;
 }
 
 a:hover {
 	color: #A00;
 }
 
-.frontpage-story, .comment {
-	background: #EEF;
+.frontpage-story, .comment, .story-text {
+	background: #AFA;
 	margin: 10px;
-	border-radius: 10px;
 	padding: 10px;
-	border: 1px #AAF solid;
+	border-left: 5px solid green;
+}
+
+input[type=text] {
+	width: 90%;
+	height: 40px;
+	display: block;
+	margin: 20px auto;
+	font-size: 20px;
+	text-align: center;
 }
 
 .comment {
 	padding: 20px;
+}
+
+.score {
+	float: left;
+	width: 50px;
+	padding-right: 15px;
 }
 
 .fade-enter {
@@ -144,7 +164,7 @@ a:hover {
 
 .story > p {
 	font-size: 12px;
-	margin: 50px 0;
+	margin: 50px;
 }
 
 .comment h4 {

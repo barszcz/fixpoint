@@ -25,7 +25,6 @@ var Comment = React.createClass({
 
 	render: function() {
 		var data = this.state.data;
-		var text
 		var children = !this.state.collapsed && data.kids && data.kids.map(function(id) {
 			return (
 				<Comment key={id} itemId={id}/>
@@ -34,18 +33,23 @@ var Comment = React.createClass({
 		var expand = this.state.collapsed ? "[+]" : "[-]";
 		var commentBody = !this.state.collapsed ? <CommentBody key={data.id} text={data.text || ""} /> : null
 
-		return (
+		if (data.text) { 
+			return (
 			<li>
 				<div className="comment">
 					<a href="javascript:void(0);" onClick={this.toggleCollapsed} className="expand-button">{expand} </a>
 					<InfoLine data={data} isComment={true} />
 						{commentBody}
 				</div>
-				{children}
+				<ul>
+					{children}
+				</ul>
 			</li>
 
-		);
-
+			);
+		} else {
+			return (<div/>)
+		}
 	}
 
 });

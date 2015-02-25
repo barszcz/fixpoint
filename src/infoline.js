@@ -11,14 +11,15 @@ var InfoLine = React.createClass({
 		var data = this.props.data;
 		var commentsCount = data.kids ? data.kids.length : 0;
 		var time = Moment.unix(data.time).fromNow();
+		var parent = data.parent && <a href={data.parent}>(parent)</a>;
 
 		if (this.props.isComment) {
 			return (
-				<h4><strong>{data.by}</strong> {time} </h4>
+				<h4><strong>{data.by}</strong> <a href={data.id}>{time}</a> </h4>
 			);
 		} else {	
 			return (
-				<h4>Submitted by <strong>{data.by}</strong> {time} - {data.score} points - <a href={data.id}>{commentsCount} comments</a></h4>
+				<h4>Submitted by <strong>{data.by}</strong> <a href={data.id}>{time}</a> - {data.score} points - <a href={data.id}>{commentsCount} comments</a> {parent}</h4>
 			);
 		}
 	}

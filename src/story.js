@@ -22,20 +22,25 @@ var Story = React.createClass({
 
 	render: function() {
 		var data = this.state.data;
-		var x = 3;
 		var commentsCount = data.kids ? data.kids.length : 0;
+		var url = data.url || "https://news.ycombinator.com/item?id=" + this.props.itemId;
+		var storyText;
+		if (data.text) {
+			storyText = <div className="story-text" dangerouslySetInnerHTML={{__html: (data.text || "")}} />
+		}
+
 		var comments = data.kids && data.kids.map(function(id) {
 			return (
 				<Comment key={id} itemId={id}/>
 			);
 		});
 
-		// dangerouslySetInnerHTML because I'm trusting HN's API, this is a test
+		// dangerouslySetInnerHTML because I'm trusting HN's API
 		return (
 				<div className="story">
-					<h2>{data.title}</h2>
+					<h2><a href={url} target="_blank">{data.title}</a></h2>
 					<InfoLine data={data} />
-					<p dangerouslySetInnerHTML={{__html: (data.text || "")}} />
+					{storyText}
 					<h3>Comments</h3>
 					{comments}
 				</div>
