@@ -7,18 +7,14 @@ var Headline = React.createClass({
 
 	mixins: [ReactFireMixin],
 
-	getInitialState: function() {
-		return {data: this.props.initialData || {}};
-	},
+	// getInitialState: function() {
+	// 	return {data: this.props.initialData || {}};
+	// },
 
-	componentWillMount: function() {
-		var firebase = HN.child("item").child(this.props.itemId);
-		firebase.once("value", function(res) {
-			var data = res.val();
-			this.props.onMount(this.props.itemId, data)
-		}.bind(this));
-		this.bindAsObject(firebase, "data");
-	},
+	// componentWillMount: function() {
+	// 	var firebase = HN.child("item").child(this.props.itemId);
+	// 	this.bindAsObject(firebase, "data");
+	// },
 
 	commentsCount: function() {
 		var queue = this.state.data.kids || [];
@@ -32,7 +28,7 @@ var Headline = React.createClass({
 	},
 
 	render: function() {
-		var data = this.state.data;
+		var data = this.props.data;
 		var commentsCount = data.kids ? data.kids.length : 0;
 		var commentsUrl = "https://news.ycombinator.com/item?id=" + this.props.itemId;
 		var url = data.url || commentsUrl;

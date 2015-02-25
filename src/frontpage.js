@@ -9,14 +9,22 @@ var FrontPage = React.createClass({
 
 	getInitialState: function() {
 		return {
-			topstories: [],
+			storyIds: [],
 			searchField: '',
 			stories: {}
 		};
 	},
 
 	componentWillMount: function() {
-		this.bindAsArray(HN.child("topstories"), "topstories");
+		this.bindAsArray(HN.child("topstories"), "storyIds");
+	},
+
+	componentWillUpdate: function() {
+		this.state.storyIds.forEach(function(id) {
+			if (!this.state.stories[id]) {
+				this.bindToStories(HN.child("item").child(id), String(id));
+			}
+		}, this);
 	},
 
 	handleChange: function() {
@@ -29,26 +37,55 @@ var FrontPage = React.createClass({
 		this.setState({
 			stories: stories
 		});
-		// console.log(this.state.titles)
 	},
 
 
 	buildStories: function() {
-		return this.state.topstories.map(function(id) {
+		return this.state.storyIds.map(function(id) {
+			var story = this.state.stories[id];
+			if (!story) return null;
+
 			return (
-				<Headline key={id} itemId={id} initialData={this.state.stories[id]} onMount={this.sendTitle}/>
+				<Headline key={id} itemId={id} data={this.state.stories[id]}/>
 			);
-		}.bind(this));
+		}, this);
+	},
+
+	bindToStories: function(firebaseRef, bindVar, cancelCallback) {
+		this._validateBindVar(bindVar);
+
+		var errorMessage, errorCode;
+	    
+	    if (Object.prototype.toString.call(firebaseRef) !== "[object Object]") {
+	      errorMessage = "firebaseRef must be an instance of Firebase";
+	      errorCode = "INVALID_FIREBASE_REF";
+	    }
+
+	    if (typeof errorMessage !== "undefined") {
+	      var error = new Error("ReactFire: " + errorMessage);
+	      error.code = errorCode;
+	      throw error;
+	    }
+
+	    this.firebaseRefs[bindVar] = firebaseRef.ref();
+		
+		this.firebaseListeners[bindVar] = firebaseRef.on("value", function(dataSnapshot) {
+	      	var newStories = this.state.stories;
+
+	      	newStories[bindVar] = dataSnapshot.val();
+	      	this.setState({stories: newStories});
+    	}.bind(this), cancelCallback);
 	},
 
 	render: function() {
 
 		var filteredStories = this.buildStories().filter(function(story) {
+			if (!story) return false;
 			if (this.state.searchField === '') return true;
 			var re = new RegExp(this.state.searchField, 'i');
-			var title = this.state.stories[story.props.itemId];
+			var title = this.state.stories[story.props.id];
 			return (!title || title.title.search(re) !== -1);
-		}.bind(this));
+		}, this);
 
 		return (
 			<div>
