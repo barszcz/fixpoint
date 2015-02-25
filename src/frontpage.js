@@ -50,10 +50,12 @@ var FrontPage = React.createClass({
 			return (!title || title.title.search(re) !== -1);
 		}.bind(this));
 
+		var spinner = <div className="spinner"><i className="fa fa-cog fa-spin"></i></div>
+
 		return (
 			<div>
 				<input type="text" onChange={this.handleChange} value={this.state.searchField} />
-				{filteredStories}
+				{filteredStories.length === 0 ? spinner : filteredStories}
 			</div>
 			);
 	},

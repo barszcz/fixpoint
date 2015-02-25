@@ -7,7 +7,7 @@
 
 
 html, body, section, main, article,
-h1, h2, h3, h4, p, strong, em, a, ul {
+h1, h2, h3, h4, p, strong, em, a, ul, span {
   margin: 0;
   border: 0;
   padding: 0;
@@ -24,6 +24,15 @@ body {
 	font-family: PT Serif, serif;
 	/*font-weight: 300;*/
 	font-size: 13px;
+}
+
+.spinner {
+	color: #DDD;
+	font-size: 144px;
+	text-align: center;
+	margin-top: 100px;
+	/*margin: auto;*/
+	/*display: block;*/
 }
 
 strong {
