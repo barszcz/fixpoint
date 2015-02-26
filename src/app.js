@@ -18,23 +18,7 @@ var App = React.createClass({
 		'/user/:userId': 'user',
 	},
 
-	// getInitialState: function() {
-	// 	return {
-	// 		mounted: false
-	// 	};
-	// },
-
-	// componentDidMount: function() {
-	// 	this.setState({
-	// 		mounted: true
-	// 	});
-	// },
-
 	render: function() {
-		var child;
-		// if (this.state.mounted) {
-		// 	child = this.renderCurrentRoute();
-		// }
 		return (
 			<div>
 				<header>

@@ -26,6 +26,7 @@ var Story = React.createClass({
 		var url = data.url || "https://news.ycombinator.com/item?id=" + this.props.itemId;
 		var storyText;
 		if (data.text) {
+			// dangerouslySetInnerHTML because I'm trusting HN's API
 			storyText = <div className="story-text" dangerouslySetInnerHTML={{__html: (data.text || "")}} />
 		}
 
@@ -35,7 +36,6 @@ var Story = React.createClass({
 			);
 		});
 
-		// dangerouslySetInnerHTML because I'm trusting HN's API
 		return (
 				<div className="story">
 					<h2><a href={url} target="_blank">{data.title}</a></h2>
