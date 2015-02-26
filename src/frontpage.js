@@ -11,12 +11,17 @@ var FrontPage = React.createClass({
 		return {
 			topstories: [],
 			searchField: '',
-			stories: {}
+			stories: {},
+			mounted: false
 		};
 	},
 
 	componentWillMount: function() {
 		this.bindAsArray(HN.child("topstories"), "topstories");
+	},
+
+	componentDidMount: function() {
+		this.setState({mounted: true});
 	},
 
 	handleChange: function() {
@@ -43,7 +48,9 @@ var FrontPage = React.createClass({
 
 	render: function() {
 
-		var filteredStories = this.buildStories().filter(function(story) {
+		var stories = this.buildStories();
+
+		var filteredStories = stories.filter(function(story) {
 			if (this.state.searchField === '') return true;
 			var re = new RegExp(this.state.searchField, 'i');
 			var title = this.state.stories[story.props.itemId];
@@ -55,7 +62,7 @@ var FrontPage = React.createClass({
 		return (
 			<div>
 				<input type="text" onChange={this.handleChange} value={this.state.searchField} />
-				{filteredStories.length === 0 ? spinner : filteredStories}
+				{stories.length === 0 ? spinner : filteredStories}
 			</div>
 			);
 	},
