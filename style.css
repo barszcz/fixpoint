@@ -89,6 +89,10 @@ a:hover {
 	border-left: 5px solid green;
 }
 
+.hide {
+	display: none;
+}
+
 input[type=text] {
 	width: 200px;
 	height: 40px;

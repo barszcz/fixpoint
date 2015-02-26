@@ -48,11 +48,11 @@ var App = React.createClass({
 	},
 
 	frontPage: function() {
-		return <FrontPage key={0}/>;
+		return <FrontPage key="frontPage"/>;
 	},
 
 	story: function(itemId) {
-		return <Story itemId={itemId} key={itemId}/>
+		return <Story itemId={itemId} key="story"/>
 	},
 
 	user: function(userId) {
