@@ -17,14 +17,12 @@ var FrontPage = React.createClass({
 
 	componentWillMount: function() {
 		this.bindAsArray(HN.child("topstories"), "storyIds");
+		this.bindStories();
 	},
 
 	componentWillUpdate: function() {
-		this.state.storyIds.forEach(function(id) {
-			if (!this.state.stories[id]) {
-				this.bindToStories(HN.child("item").child(id), String(id));
-			}
-		}, this);
+		console.log("updating");
+		this.bindStories();
 	},
 
 	handleChange: function() {
@@ -51,7 +49,15 @@ var FrontPage = React.createClass({
 		}, this);
 	},
 
-	bindToStories: function(firebaseRef, bindVar, cancelCallback) {
+	bindStories: function() {
+		this.state.storyIds.forEach(function(id) {
+			if (!this.firebaseRefs[String(id)]) {
+				this.bindStory(HN.child("item").child(id), String(id));
+			}
+		}, this);
+	},
+
+	bindStory: function(firebaseRef, bindVar, cancelCallback) {
 		this._validateBindVar(bindVar);
 
 		var errorMessage, errorCode;
@@ -74,6 +80,7 @@ var FrontPage = React.createClass({
 
 	      	newStories[bindVar] = dataSnapshot.val();
 	      	this.setState({stories: newStories});
+	      	// this.forceUpdate();
     	}.bind(this), cancelCallback);
 	},
 
@@ -83,7 +90,7 @@ var FrontPage = React.createClass({
 			if (!story) return false;
 			if (this.state.searchField === '') return true;
 			var re = new RegExp(this.state.searchField, 'i');
-			var title = this.state.stories[story.props.id];
+			var title = this.state.stories[story.props.itemId];
 			return (!title || title.title.search(re) !== -1);
 		}, this);
 
