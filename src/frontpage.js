@@ -18,6 +18,10 @@ var FrontPage = React.createClass({
 		this.bindAsArray(HN.child("topstories"), "storyIds");
 	},
 
+	componentDidMount: function() {
+		document.title = "Fixpoint | A Hacker News reader";
+	},
+
 	_handleChange: function() {
 		this.setState({searchField: event.target.value});
 	},

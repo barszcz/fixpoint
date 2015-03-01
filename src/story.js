@@ -18,6 +18,7 @@ var Story = React.createClass({
 
 	componentDidMount: function() {
 		window.scroll(0,0);
+		document.title = this.state.data.title + " | Fixpoint";
 	},
 
 	render: function() {
