@@ -21,6 +21,10 @@ var Story = React.createClass({
 		document.title = this.state.data.title + " | Fixpoint";
 	},
 
+	componentDidUpdate: function(prevProps, prevState) {
+		document.title = this.state.data.title + " | Fixpoint";
+	},
+
 	render: function() {
 		var data = this.state.data;
 		var commentsCount = data.kids ? data.kids.length : 0;

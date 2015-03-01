@@ -36,7 +36,7 @@ var App = React.createClass({
 	},
 
 	story: function(itemId) {
-		return <Story itemId={itemId} key="story"/>
+		return <Story itemId={itemId} key={itemId}/>
 	},
 
 	user: function(userId) {

@@ -1,9 +1,9 @@
-/*@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
-@import url(http://fonts.googleapis.com/css?family=Merriweather:400,400italic,700,700italic);*/
+/*@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);*/
+/*@import url(http://fonts.googleapis.com/css?family=Merriweather:400,400italic,700,700italic);*/
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700);
 /*@import url(http://fonts.googleapis.com/css?family=Oswald:400,700,300);
 @import url(http://fonts.googleapis.com/css?family=PT+Sans:400,700);*/
-@import url(http://fonts.googleapis.com/css?family=PT+Serif:400,700,400italic,700italic);
+/*@import url(http://fonts.googleapis.com/css?family=PT+Serif:400,700,400italic,700italic);*/
 
 
 html, body, section, main, article,
@@ -21,7 +21,7 @@ h1, h2, h3, h4, p, strong, em, a, ul, span {
 }
 
 body {
-	font-family: PT Serif, serif;
+	font-family: Open Sans, sans-serif;
 	/*font-weight: 300;*/
 	font-size: 13px;
 }
