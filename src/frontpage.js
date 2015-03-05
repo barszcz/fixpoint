@@ -15,7 +15,9 @@ var FrontPage = React.createClass({
 	},
 
 	componentWillMount: function() {
-		this.bindAsArray(HN.child("topstories"), "storyIds");
+		// HN changed their API so top stories now has 500 stories. 
+		// Limiting them to top 100 until I get pagination working
+		this.bindAsArray(HN.child("topstories").limitToFirst(100), "storyIds");
 	},
 
 	componentDidMount: function() {
